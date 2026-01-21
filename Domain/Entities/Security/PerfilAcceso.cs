@@ -1,6 +1,4 @@
-﻿
-
-namespace Domain.Entities.Segurity;
+﻿namespace Domain.Entities.Security;
 
 public class PerfilAcceso : Entity
 {

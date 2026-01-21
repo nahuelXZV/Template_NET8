@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Exceptions;
+﻿using Domain.Exceptions;
 using Domain.Interfaces.Shared;
 
 namespace Domain.Common;
@@ -37,6 +32,4 @@ public class Response<T> : IResponse
         Succeded = false;
         Errors = new MessageError(exception.Message);
     }
-
-
-}}
+}

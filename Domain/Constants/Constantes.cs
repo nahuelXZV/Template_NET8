@@ -6,6 +6,7 @@ public static class Constantes
     {
         public const string ApiRest = "ApiRest";
     }
+
     public static class CorsPolicies
     {
         public const string ClienteWeb = "ClienteWeb";
