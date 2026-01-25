@@ -1,8 +1,26 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using WebClient.Components
+@using WebClient.Components.General.Home
+@model HomeViewModel
+
+@{
+	ViewData["Title"] = "Home Page";
+	ViewData["Module"] = "Home";
+	ViewData["Action"] = "Dashboard";
+	ViewData["Url"] = Url.Action("Index", "Home");
+
+	var componentName = nameof(HomeComponent);
+	var componentParameters = new Dictionary<string, object>
+	{
+	};
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@* @section Styles { *@
+
+@* } *@
+
+@* @section ContentHeader { *@
+@* } *@
+<component type="typeof(MainComponent)"
+		   param-ComponentTypeName="typeof(HomeComponent).FullName"
+		   param-Parameters="@componentParameters"
+		   render-mode="ServerPrerendered" />
