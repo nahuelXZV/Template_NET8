@@ -18,7 +18,7 @@
 
 		@if (!string.IsNullOrEmpty(Placeholder))
 		{
-			<option value="">@Placeholder</option>
+			<option value="0" selected>@Placeholder</option>
 		}
 
 		@foreach (var item in Options)
@@ -47,15 +47,13 @@
 	[Parameter] public TValue Value { get; set; }
 	[Parameter] public EventCallback<TValue> ValueChanged { get; set; }
 
-	private string FormatValue(TValue value)
-		=> value?.ToString() ?? string.Empty;
+	private string FormatValue(TValue value) => value?.ToString() ?? string.Empty;
 
 	private async Task OnValueChanged(ChangeEventArgs e)
 	{
 		var selectedValue = e.Value?.ToString();
 
-		var selectedItem = Options.FirstOrDefault(
-			item => FormatValue(GetValue(item)) == selectedValue);
+		var selectedItem = Options.FirstOrDefault(item => FormatValue(GetValue(item)) == selectedValue);
 
 		if (selectedItem != null)
 		{
@@ -64,7 +62,6 @@
 		}
 		else
 		{
-			// Placeholder seleccionado
 			Value = default;
 			await ValueChanged.InvokeAsync(Value);
 		}

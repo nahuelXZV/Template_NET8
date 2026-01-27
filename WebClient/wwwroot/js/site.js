@@ -84,4 +84,33 @@ window.showModal = async function ({
     modal.show();
 };
 
+const modalEl = document.getElementById('modal-alert');
+const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+const titleEl = document.getElementById('modal-title');
+const bodyEl = document.getElementById('modal-content');
+
+function clearModal() {
+    titleEl.innerHTML = '';
+    bodyEl.innerHTML = '';
+}
+
+function showModalAlert(title, message, iconClass) {
+    clearModal();
+
+    titleEl.innerHTML = `
+			<i class="${iconClass}"></i>
+			<span>${title}</span>
+		`;
+
+    bodyEl.innerHTML = `
+			<div class="d-flex align-items-start gap-2">
+				<div>${message}</div>
+			</div>
+		`;
+
+    modal.show();
+}
+
+
 //FIN MODAL

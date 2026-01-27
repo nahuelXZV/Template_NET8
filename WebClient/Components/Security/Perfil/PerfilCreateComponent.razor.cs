@@ -1,26 +1,32 @@
 ﻿using Domain.DTOs.Security;
 using FluentValidation;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
-using WebClient.Components.Shared.Base;
+using WebClient.Common.Validation;
 
 namespace WebClient.Components.Security.Perfil;
 
 public partial class PerfilCreateComponent
 {
     [Inject] public NavigationManager Navigation { get; set; }
-    [Inject] public IValidator<PerfilDTO> Validator { get; set; }
     [Parameter] public PerfilDTO Perfil { get; set; }
     [Parameter] public List<ModuloDTO> ListaModulos { get; set; }
-
-    private ValidatorHelper<PerfilDTO> _validatorHelper;
+    [Inject] public IValidator<PerfilDTO> Validator { get; set; }
+    private EditContext _editContext;
+    private FluentValidationValidator<PerfilDTO> _fvValidator;
     private DotNetObjectReference<PerfilCreateComponent> _objectHelper;
     private List<long> ListaAccesosSeleccionados { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(Perfil);
+        _fvValidator = new FluentValidationValidator<PerfilDTO>(_editContext, Validator);
+    }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        _validatorHelper = new ValidatorHelper<PerfilDTO>(Validator);
         if (Perfil.Id != 0) await ModoEdicion();
     }
 
@@ -47,6 +53,7 @@ public partial class PerfilCreateComponent
             await JSRuntime.InvokeVoidAsync("console.warn", $"No se pudo inicializar JSHelper para componente: {nameof(PerfilCreateComponent)}");
         }
     }
+
     private void OnAccesoSeleccionChanged(long accesoId, bool isChecked)
     {
         if (isChecked)
@@ -62,13 +69,13 @@ public partial class PerfilCreateComponent
     }
 
     [JSInvokable]
-    public async Task Guardar()
+    public async Task Validar()
     {
-        if (!await _validatorHelper.Validar(Perfil))
-        {
-            StateHasChanged(); return;
-        }
+        if (_editContext.Validate()) await Guardar();
+    }
 
+    private async Task Guardar()
+    {
         try
         {
             Perfil.ListaAccesos = ListaAccesosSeleccionados.Select(Id =>

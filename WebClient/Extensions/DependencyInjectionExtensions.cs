@@ -7,6 +7,7 @@ using WebClient.Services.Implementacion;
 using WebClient.Services;
 using Domain.Interfaces.Services.Security;
 using WebClient.Services.Segurity;
+using Domain.Validators.Security;
 
 namespace WebClient.Extensions;
 
@@ -22,7 +23,9 @@ public static class DependencyInjectionExtensions
         }).AddHttpMessageHandler<AppServicesAuthorizationHandler>();
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        #region Validators
+        services.AddValidatorsFromAssemblyContaining<CreateUsuarioDTOValidator>();
+        #endregion
 
         #region Services
         services.AddScoped<IAppServices, AppServices>();

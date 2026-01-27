@@ -57,7 +57,7 @@
 									var accesoActivo = acceso.Controlador == currentController && acceso.Vista == currentAction;
 									<li class="nav-item">
 										<a href="@Url.Action(acceso.Vista, acceso.Controlador)" class="nav-link @(accesoActivo ? "active" : "")">
-											<i class="nav-icon @acceso.Icono"></i>
+											<i class="nav-icon @acceso.Icono" style="margin-right: 5px;margin-left: 25px;"></i>
 											@acceso.Nombre
 										</a>
 									</li>

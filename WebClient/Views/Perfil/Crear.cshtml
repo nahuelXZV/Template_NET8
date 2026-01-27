@@ -1,20 +1,20 @@
 ﻿@using WebClient.Common
 @using WebClient.Components
-@using WebClient.Components.Security.Usuario
+@using WebClient.Components.Security.Perfil
 @using WebClient.Models.Security
-@model UsuarioViewModel
+@model PerfilViewModel
 
 @{
-	ViewData["Title"] = "Usuario";
-	ViewData["Module"] = "Usuario";
+	ViewData["Title"] = "Perfil";
+	ViewData["Module"] = "Perfil";
 	ViewData["Action"] = "Crear";
-	ViewData["Url"] = Url.Action("Listado", "Usuario");
+	ViewData["Url"] = Url.Action("Listado", "Perfil");
 
-	var componentName = nameof(UsuarioCreateComponent);
+	var componentName = nameof(PerfilCreateComponent);
 	var componentParameters = new Dictionary<string, object>
 	{
-		{ nameof(UsuarioCreateComponent.Usuario), Model.Usuario  },
-		{ nameof(UsuarioCreateComponent.ListaPerfiles), Model.ListaPerfiles  },
+		{ nameof(PerfilCreateComponent.Perfil), Model.Perfil  },
+		{ nameof(PerfilCreateComponent.ListaModulos), Model.ListaModulos  },
 	};
 }
 <script>
@@ -39,6 +39,7 @@
 
 	window.@componentName = @componentName;
 </script>
+
 
 @section ActionBar {
 	<div class="card card-outline card-primary action-bar">
@@ -66,7 +67,7 @@
 }
 
 <component type="typeof(MainComponent)"
-		   param-ComponentTypeName="typeof(UsuarioCreateComponent).FullName"
+		   param-ComponentTypeName="typeof(PerfilCreateComponent).FullName"
 		   param-Parameters="@componentParameters"
 		   render-mode="ServerPrerendered" />
 

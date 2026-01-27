@@ -1,60 +1,50 @@
 ﻿@using Domain.DTOs.Security;
 @using WebClient.Components
 @using WebClient.Components.Shared.Elements
+
 @inherits Components.MainBaseComponent;
 
+<IUCard>
+	<Header>
+		<h4 class="">Datos del usuario</h4>
+	</Header>
 
-<div class="grid grid-cols-12 gap-2 p-2">
-	<IUCard CustomClass="col-span-12">
-		<Header>
-			<h3 class="text-lg font-semibold text-gray-900">Datos del usuario</h3>
-		</Header>
+	<Body>
+		<EditForm EditContext="_editContext">
+			<DataAnnotationsValidator />
 
-		<Body>
-			<div class="grid grid-cols-4 md:grid-cols-12 gap-2">
-				<div class="col-span-4 md:col-span-4">
+			<div class="row">
+				<div class="col-12 col-md-4">
 					<IUInputText Label="Nombre"
 								 Placeholder="Escriba el nombre..."
 								 @bind-Value="Usuario.Nombre"
 								 Required=true />
-					@if (_validatorHelper.TieneErrores(nameof(Usuario.Nombre)))
-					{
-						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Nombre))" />
-					}
+					<ValidationMessage For=@(() => Usuario.Nombre) />
 				</div>
-				<div class="col-span-4 md:col-span-4">
+				<div class="col-12 col-md-4">
 					<IUInputText Label="Apellido"
 								 Placeholder="Escriba el apellido..."
 								 @bind-Value="Usuario.Apellido"
 								 Required=true />
-					@if (_validatorHelper.TieneErrores(nameof(Usuario.Apellido)))
-					{
-						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Apellido))" />
-					}
+					<ValidationMessage For="() => Usuario.Apellido" />
 				</div>
-				<div class="col-span-4 md:col-span-4">
+				<div class="col-12 col-md-4">
 					<IUInputText Label="Username"
 								 Placeholder="Escriba el username..."
 								 @bind-Value="Usuario.Username"
 								 Required=true />
-					@if (_validatorHelper.TieneErrores(nameof(Usuario.Username)))
-					{
-						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Username))" />
-					}
+					<ValidationMessage For="() => Usuario.Username" />
 				</div>
 
-				<div class="col-span-4 md:col-span-4">
+				<div class="col-12 col-md-4">
 					<IUInputText Label="Correo"
 								 Placeholder="Escriba el correo..."
 								 @bind-Value="Usuario.Email"
 								 Required=true />
-					@if (_validatorHelper.TieneErrores(nameof(Usuario.Email)))
-					{
-						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Email))" />
-					}
+					<ValidationMessage For="() => Usuario.Email" />
 				</div>
 
-				<div class="col-span-4 md:col-span-4">
+				<div class="col-12 col-md-4">
 					<IUSelect TItem="PerfilDTO"
 							  TValue="long"
 							  Label="Selecciona un perfil"
@@ -64,37 +54,29 @@
 							  GetValue="@(c => c.Id)"
 							  @bind-Value="Usuario.PerfilId"
 							  Required="true" />
-					@if (_validatorHelper.TieneErrores(nameof(Usuario.PerfilId)))
-					{
-						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.PerfilId))" />
-					}
+					<ValidationMessage For="() => Usuario.PerfilId" />
 				</div>
-				<div class="col-span-4 md:col-span-4"></div>
 
 				@if (Usuario.Id != 0)
 				{
-					<div class="col-span-4 md:col-span-4">
-						<label class="hidden md:invisible mb-2 text-sm font-medium">Check</label>
+					<div class="col-12 col-md-4">
+						<label class="d-none d-md-block invisible mb-2">Check</label>
 						<IUInputCheckbox Label="Modificar Contraseña"
 										 @bind-Value="ModificarContraseña" />
 					</div>
 				}
 
-
 				@if (ModificarContraseña || Usuario.Id == 0)
 				{
-					<div class="col-span-4 md:col-span-4">
+					<div class="col-12 col-md-4">
 						<IUInputPassword Label="Contraseña"
 										 Placeholder="Escriba la contraseña..."
 										 @bind-Value="Usuario.Password"
 										 Required=true />
-						@if (_validatorHelper.TieneErrores(nameof(Usuario.Password)))
-						{
-							<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Password))" />
-						}
+						<ValidationMessage For="() => Usuario.Password" />
 					</div>
 				}
 			</div>
-		</Body>
-	</IUCard>
-</div>
+		</EditForm>
+	</Body>
+</IUCard>

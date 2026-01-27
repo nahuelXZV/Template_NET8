@@ -30,7 +30,8 @@ public class CreateUsuarioDTOValidator : AbstractValidator<UsuarioDTO>
 
         RuleFor(p => p.Password)
             .NotEmpty().WithMessage("{PropertyName} es requerido.")
-            .NotNull();
+            .NotNull()
+            .When(p => p.Id == 0);
 
         RuleFor(p => p.PerfilId)
              .NotEmpty().WithMessage("{PropertyName} es requerido.")

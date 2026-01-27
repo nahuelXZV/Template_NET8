@@ -1,39 +1,32 @@
 ﻿using Domain.DTOs.Security;
 using FluentValidation;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
-using WebClient.Components.Shared.Base;
+using WebClient.Common.Validation;
 
 namespace WebClient.Components.Security.Usuario;
 
 public partial class UsuarioCreateComponent
 {
     [Inject] public NavigationManager Navigation { get; set; }
-    [Inject] public IValidator<UsuarioDTO> Validator { get; set; }
     [Parameter] public UsuarioDTO Usuario { get; set; }
     [Parameter] public List<PerfilDTO> ListaPerfiles { get; set; }
-
-    private ValidatorHelper<UsuarioDTO> _validatorHelper;
+    [Inject] public IValidator<UsuarioDTO> Validator { get; set; }
+    private EditContext _editContext;
     private DotNetObjectReference<UsuarioCreateComponent> _objectHelper;
-    private List<long> ListaAccesosSeleccionados { get; set; } = new();
+    private FluentValidationValidator<UsuarioDTO> _fvValidator;
     public bool ModificarContraseña { get; set; } = false;
-
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await base.OnInitializedAsync();
-        _validatorHelper = new ValidatorHelper<UsuarioDTO>(Validator);
-        if (Usuario.Id != 0) await ModoEdicion();
+        _editContext = new EditContext(Usuario);
+        _fvValidator = new FluentValidationValidator<UsuarioDTO>(_editContext, Validator);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         await InicializarJSHelper();
-    }
-
-    private async Task ModoEdicion()
-    {
-        //ListaAccesosSeleccionados = Perfil.ListaAccesos.Select(a => a.AccesoId).ToList();
     }
 
     private async Task InicializarJSHelper()
@@ -50,15 +43,13 @@ public partial class UsuarioCreateComponent
     }
 
     [JSInvokable]
-    public async Task Guardar()
+    public async Task Validar()
     {
-        if (!ModificarContraseña && Usuario.Id != 0) Usuario.Password = "temp";
-        if (!await _validatorHelper.Validar(Usuario))
-        {
-            if (!ModificarContraseña && Usuario.Id != 0) Usuario.Password = string.Empty;
-            StateHasChanged(); return;
-        }
+        if (_editContext.Validate()) await Guardar();
+    }
 
+    private async Task Guardar()
+    {
         try
         {
             if (!ModificarContraseña && Usuario.Id != 0) Usuario.Password = string.Empty;
@@ -80,5 +71,6 @@ public partial class UsuarioCreateComponent
         {
             await ShowErrorMessage(ex.Message);
         }
+
     }
 }
