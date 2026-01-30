@@ -23,7 +23,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Features\Security\Auth\Queries\" />
-	  <Folder Include="Features\Security\Module\Commands\" />
+	  <Folder Include="Features\Security\Modulos\Commands\" />
 	</ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using Domain.Common;
 using Domain.Entities.Security;
 using Application.Interfaces;
 
-namespace Application.Features.Security.Users.Commands;
+namespace Application.Features.Security.Usuarios.Commands;
 
 public class DeleteUserCommand : ICommand<Response<bool>>
 {

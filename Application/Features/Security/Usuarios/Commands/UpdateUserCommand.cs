@@ -6,9 +6,9 @@ using Domain.Common;
 using Domain.Entities.Security;
 using Domain.DTOs.Security;
 using Application.Interfaces;
-using Application.Features.Security.Users.Queries;
+using Application.Features.Security.Usuarios.Queries;
 
-namespace Application.Features.Security.Users.Commands;
+namespace Application.Features.Security.Usuarios.Commands;
 public class UpdateUserCommand : ICommand<Response<bool>>
 {
     public UsuarioDTO UsuarioDTO { get; set; }

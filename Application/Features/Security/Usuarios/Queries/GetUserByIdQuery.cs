@@ -6,7 +6,7 @@ using Domain.Entities.Security;
 using Domain.Interfaces.Shared;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Security.Users.Queries;
+namespace Application.Features.Security.Usuarios.Queries;
 
 public class GetUserByIdQuery : ICommand<Response<UsuarioDTO>>
 {

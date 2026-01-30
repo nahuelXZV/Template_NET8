@@ -8,7 +8,7 @@ using Domain.Extensions;
 using Domain.Interfaces.Shared;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Security.Users.Queries;
+namespace Application.Features.Security.Usuarios.Queries;
 
 public class GetAllUsersQuery : ICommand<Response<ResponseFilterDTO<UsuarioDTO>>>
 {

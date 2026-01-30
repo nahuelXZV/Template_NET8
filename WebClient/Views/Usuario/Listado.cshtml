@@ -50,6 +50,13 @@
 		new gridjs.Grid({
 			columns: ['Id', 'Nombre', "Apellido", "Correo",
 				{
+					name: "Estado",
+					formatter: (cell) => gridjs.html(
+					cell
+						? `<span class="badge bg-success">Activo</span>`
+						: `<span class="badge bg-secondary">Inactivo</span>`)
+				},
+				{
 					name: 'Acciones',
 					formatter: (cell, row) => gridjs.html(this.menuTableHandler(row._cells[0].data))
 				}
@@ -57,7 +64,7 @@
 			server: {
 			  url: urlWeb + "Usuario/GetAll",
 			  then: data => data.data.map(usuario => [
-				usuario.id, usuario.nombre, usuario.apellido, usuario.email
+				usuario.id, usuario.nombre, usuario.apellido, usuario.email, usuario.activo
 			  ]),
 			  total: data => data.total
 			},

@@ -59,13 +59,16 @@
 
 				@if (Usuario.Id != 0)
 				{
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-1">
+						<label class="d-none d-md-block invisible mb-2">Activo</label>
+						<IUInputCheckbox Label="Activo" @bind-Value="Usuario.Activo" />
+					</div>
+
+					<div class="col-12 col-md-2">
 						<label class="d-none d-md-block invisible mb-2">Check</label>
-						<IUInputCheckbox Label="Modificar Contraseña"
-										 @bind-Value="ModificarContraseña" />
+						<IUInputCheckbox Label="Modificar Contraseña" @bind-Value="ModificarContraseña" />
 					</div>
 				}
-
 				@if (ModificarContraseña || Usuario.Id == 0)
 				{
 					<div class="col-12 col-md-4">

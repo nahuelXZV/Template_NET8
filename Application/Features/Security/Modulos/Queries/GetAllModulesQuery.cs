@@ -8,7 +8,7 @@ using Domain.Extensions;
 using Domain.Interfaces.Shared;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Security.Module.Queries;
+namespace Application.Features.Security.Modulos.Queries;
 
 public class GetAllModulesQuery : ICommand<Response<ResponseFilterDTO<ModuloDTO>>>
 {

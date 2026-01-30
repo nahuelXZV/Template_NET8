@@ -6,7 +6,7 @@ using Domain.Interfaces.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Security.Users.Queries;
+namespace Application.Features.Security.Usuarios.Queries;
 
 public class GetUserByUsernameQuery : IRequest<Response<UsuarioDTO>>
 {
@@ -29,6 +29,7 @@ public class GetUserByUsernameQueryHandler : IRequestHandler<GetUserByUsernameQu
 
         var usuarioRequest = await dbContext.Set<Usuario>()
                                         .Where(u => u.Username == request.Username)
+                                        .Where(u => !u.Eliminado && u.Activo)
                                         .Select(u => new UsuarioDTO
                                         {
                                             Id = u.Id,

@@ -1,8 +1,7 @@
-﻿using Application.Features.Security.Users.Commands;
-using Application.Features.Security.Users.Queries;
+﻿using Application.Features.Security.Usuarios.Commands;
+using Application.Features.Security.Usuarios.Queries;
 using Domain.DTOs.Security;
 using Domain.DTOs.Shared;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.Segurity;

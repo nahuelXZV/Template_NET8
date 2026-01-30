@@ -6,7 +6,7 @@ using Domain.Common;
 using Domain.DTOs.Security.Request;
 using Domain.DTOs.Security;
 using Application.Interfaces;
-using Application.Features.Security.Users.Queries;
+using Application.Features.Security.Usuarios.Queries;
 
 namespace Application.Features.Security.Auth.Commands;
 

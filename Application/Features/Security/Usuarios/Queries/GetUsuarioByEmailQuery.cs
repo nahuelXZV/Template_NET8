@@ -5,7 +5,7 @@ using Domain.Common;
 using Domain.Entities.Security;
 using Domain.DTOs.Security;
 
-namespace Application.Features.Security.Users.Queries;
+namespace Application.Features.Security.Usuarios.Queries;
 
 public class GetUsuarioByEmailQuery : IRequest<Response<UsuarioDTO>>
 {
